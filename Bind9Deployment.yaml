@@ -37,8 +37,6 @@ spec:
       - name: bind9
         image: ubuntu/bind9
         env:
-        - name: TZ
-          value: UTC
         ports:
         - containerPort: 53
           hostPort: 53
