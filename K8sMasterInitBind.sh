@@ -23,7 +23,7 @@ apt-get install -yq kubelet kubeadm kubernetes-cni
 swapoff -a
 
 #Init the master node - advertise on the network
-kubeadm init --apiserver-advertise-address=$ipaddr
+kubeadm init --apiserver-advertise-address=$ipaddr --pod-network-cidr=10.10.10.0/24 --service-cidr=10.10.20.0/24
 
 #Remember to create environment variables as below for a regular user:
 #   mkdir -p $HOME/.kube
@@ -34,9 +34,4 @@ kubeadm init --apiserver-advertise-address=$ipaddr
 echo "Kubernetes is now installed and ready to be used"
 
 #kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml - This will install the flannel network
-#On my master node, the flannel network did not init correctly - so I manually created /run/flannel/subnet.env and added the following:
-# FLANNEL_NETWORK=10.244.0.0/16
-# FLANNEL_SUBNET=10.244.0.1/24
-# FLANNEL_MTU=1450
-# FLANNEL_IPMASQ=true
-#May not be required if you use Host Networking or another method of networking
+
